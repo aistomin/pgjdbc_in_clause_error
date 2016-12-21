@@ -4,15 +4,18 @@ import org.hibernate.Session
 
 /**
  * Created by aistomin on 11/09/16.
+ *
+ * Test that demonstrates the huge "IN" list problem.
  */
 class JdbcTest extends GroovyTestCase {
 
     void testInClause() {
         MyUser.withSession { final Session session ->
-            final def query = session.createSQLQuery(
-                "SELECT id FROM my_user WHERE id in (:ids)"
+            final query = session.createSQLQuery(
+                "SELECT id FROM my_user WHERE id IN (:ids)"
             )
-            query.setParameterList('ids', uniqueIds(32768))
+            query.setParameterList('ids', uniqueIds(32767)) // works
+//            query.setParameterList('ids', uniqueIds(32768)) // fails
             return query.list()
         }
     }
