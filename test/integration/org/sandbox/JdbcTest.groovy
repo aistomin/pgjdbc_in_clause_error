@@ -1,6 +1,5 @@
 package org.sandbox
 
-import org.grails.datastore.mapping.query.Query
 import org.hibernate.Session
 
 /**
@@ -20,7 +19,7 @@ class JdbcTest extends GroovyTestCase {
 
     private Set<Integer> uniqueIds(final Integer count) {
         final Set<Integer> ids = []
-        final def random = new Random()
+        final random = new Random()
         while (ids.size() < count) {
             ids.add(random.nextInt(1000000))
         }
